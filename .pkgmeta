@@ -1,0 +1,6 @@
+package-as: BetterBags_DialogueUI_Theme
+
+ignore:
+  - .github
+  - .gitignore
+  - .pkgmeta
