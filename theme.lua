@@ -27,11 +27,15 @@ end
 -- small ones, too short for those margins, stretch it with smaller ones.
 local OUTSIDE = { Left = -16, Right = -16, Top = -16, Bottom = -16 }
 
+-- The large frames hang 8 further out, so the paper keeps a margin around the window's
+-- contents (the close button would otherwise touch the torn edge).
+local PADDED = { Left = -24, Right = -24, Top = -24, Bottom = -24 }
+
 local FRAME = {
   Texture = "$Frame",
   SliceMode = "Tiled",
   SliceMargins = { Left = 80, Right = 80, Top = 80, Bottom = 80 },
-  Inset = OUTSIDE,
+  Inset = PADDED,
 }
 
 local SMALL_FRAME = {
