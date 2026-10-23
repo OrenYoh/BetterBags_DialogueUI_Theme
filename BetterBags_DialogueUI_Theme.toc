@@ -3,7 +3,7 @@
 ## Category: Inventory
 ## Notes: Adds DialogueUI's Brown and Dark looks as BetterBags themes.
 ## Author: OrenYoh
-## Version: 1.0.0
+## Version: 1.0.1
 ## IconTexture: Interface\AddOns\BetterBags_DialogueUI_Theme\images\parchment
 ## Dependencies: BetterBags
 ## OptionalDeps: DialogueUI
