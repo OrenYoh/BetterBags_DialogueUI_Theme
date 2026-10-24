@@ -1,14 +1,4 @@
-# BetterBags - DialogueUI Theme • a BetterBags plugin
-
-Gives BetterBags the look of [DialogueUI](https://www.curseforge.com/wow/addons/dialogueui): its torn paper frames, title font and settings tabs.
-
-Two themes are added, matching DialogueUI's own:
-- **DialogueUI (Brown)**: the parchment look.
-- **DialogueUI (Dark)**: the dark look.
-
-Pick one in BetterBags' **Settings > Theme**.
-
-### Requirements
-
-- [BetterBags](https://www.curseforge.com/wow/addons/better-bags)
-- [DialogueUI](https://www.curseforge.com/wow/addons/dialogueui): the themes use DialogueUI's own art and fonts, so they are only available while DialogueUI is enabled.
+<h1 align="center">BetterBags - DialogueUI Theme &bull; a BetterBags plugin</h1>
+<p align="center"><img src="https://media.forgecdn.net/attachments/description/1755144/description_5351e10a-ad28-4963-a848-6bc93298c98a.png" alt="BetterBags - DialogueUI Theme icon" width="300" height="300"></p>
+<p align="center"><a href="https://www.curseforge.com/wow/addons/betterbags-dialogueui-theme" target="_blank" rel="nofollow noopener"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://img.shields.io/badge/CurseForge-BetterBags_DialogueUI_Theme-EB622B.svg?style=flat" alt="CurseForge BetterBags_DialogueUI_Theme"></a> <a href="https://addons.wago.io/addons/addons/betterbags-dialogueui-theme" target="_blank" rel="nofollow noopener"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://img.shields.io/badge/Wago-BetterBags_DialogueUI_Theme-B71D23.svg?style=flat" alt="Wago BetterBags_DialogueUI_Theme"></a></p>
+<p>Lightweight addon to enable the DialogueUI themes into BetterBags.<br>Requires DialoguesUI and BetterBags installed.</p>
