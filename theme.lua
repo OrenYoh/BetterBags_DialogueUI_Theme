@@ -96,17 +96,68 @@ local function framed(noClose)
   }
 end
 
+-- Show Bags and the sort button at the end of the search bar (as the Next themes put them, next.lua): Show Bags last,
+-- the sort button left of it, each BetterBags' glyph (inked as the text, in the accent color under the pointer and
+-- pressed) on a button BUTTON square over DialogueUI's button plate (the close button's, PLATE_W x PLATE_H, PLATE_GAP
+-- apart, the first 12 in from the right, centered on the search bar's row: 40 to 60 down). The search bar ends PLATE_GAP
+-- before them. BetterBags stacks a theme's action buttons down from the first; these go right to left (Row, the hook at
+-- the end).
+local GLYPHS = "Interface\\AddOns\\BetterBags\\textures\\next\\icons\\"
+local PLATE_W, PLATE_H, PLATE_GAP, BUTTON = 30, 24, 4, 24
+local PLATE_TOP = -(50 - PLATE_H / 2)
+local FIRST_PLATE, SECOND_PLATE = -12, -12 - PLATE_W - PLATE_GAP
+local GLYPH = { Left = 4, Right = 4, Top = 4, Bottom = 4 }
+
+---@param name string
+---@param right number
+---@return table
+local function plate(name, right)
+  return {
+    Name = name,
+    Texture = "$Close",
+    TexCoords = { 0, 0.5, 0, 0.5 },
+    SliceMode = "Tiled",
+    SliceMargins = { Left = 16, Right = 16, Top = 16, Bottom = 16 },
+    Layer = "ARTWORK",
+    Points = { { Point = "TOPRIGHT", X = right, Y = PLATE_TOP } },
+    Size = { Width = PLATE_W, Height = PLATE_H },
+  }
+end
+
+---@param action string
+---@param file string
+---@return table
+local function glyphButton(action, file)
+  return {
+    Action = action,
+    Normal = { Texture = GLYPHS .. file, VertexColor = "$TextColor", Inset = GLYPH },
+    Pushed = { Texture = GLYPHS .. file, VertexColor = "$TextAccentColor", Inset = GLYPH },
+    Highlight = { Texture = GLYPHS .. file, VertexColor = "$TextAccentColor", Inset = GLYPH },
+  }
+end
+
 local bag = framed()
+bag.Textures = { CLOSE_PLATE, plate("BagsPlate", FIRST_PLATE), plate("SortPlate", SECOND_PLATE) }
 bag.Layout = {
   Search = {
     Points = {
       { Point = "TOPLEFT", X = 12, Y = -40 },
-      { Point = "BOTTOMRIGHT", RelativePoint = "TOPRIGHT", X = -12, Y = -60 },
+      { Point = "BOTTOMRIGHT", RelativePoint = "TOPRIGHT", X = SECOND_PLATE - PLATE_W - PLATE_GAP, Y = -60 },
     },
     Reserve = 24,
   },
+  Actions = {
+    Points = { { Point = "TOPRIGHT", X = FIRST_PLATE - (PLATE_W - BUTTON) / 2, Y = PLATE_TOP } },
+    Size = BUTTON,
+    Spacing = PLATE_W + PLATE_GAP - BUTTON,
+    Row = true,
+    Buttons = { glyphButton("ShowBags", "bags.png"), glyphButton("Sort", "sort.png") },
+  },
   Footer = { Left = 12, Right = 12, Bottom = 8, Height = 20, Reserve = 26 },
   MenuButton = { Points = { { Point = "TOPLEFT", X = 8, Y = -6 } } },
+  -- The group tabs 6 lower than BetterBags' default (their top 2 into the window), clear of the paper's torn edge (seen in
+  -- game).
+  Tabs = { Offset = { X = 0, Y = -4 } },
 }
 
 local dialog = framed(true)
@@ -210,3 +261,22 @@ sonata:RegisterTheme({
     TabSelectedTextColor = { 1, 0.98, 0.8, 1 },
   },
 })
+
+-- BetterBags stacks a theme's action buttons down from the first (frames/bagactions.lua, BagActions:Place); this theme's
+-- (Layout.Actions with Row, its own key) go right to left from it instead, each Spacing left of the one before. The
+-- BetterBags WoW Classic theme hooks it the same way, so both together place them alike.
+-- KEEP WATCH on BetterBags releases: this hooks BetterBags' internals (the BagActions module's Place and the buttons it
+-- keeps). If they are renamed the buttons stack down again; if BetterBags lets a theme lay its actions in a row, use that.
+local bagActions = BetterBags:GetModule('BagActions', true)
+if bagActions ~= nil and bagActions.Place ~= nil then
+  hooksecurefunc(bagActions, "Place", function(_, actions, layout)
+    if type(layout) ~= "table" or not layout.Row or actions == nil or actions.buttons == nil then return end
+    for i = 2, #(layout.Buttons or {}) do
+      local button, before = actions.buttons[i], actions.buttons[i - 1]
+      if button ~= nil and before ~= nil then
+        button:ClearAllPoints()
+        button:SetPoint("RIGHT", before, "LEFT", -(layout.Spacing or 0), 0)
+      end
+    end
+  end)
+end
