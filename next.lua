@@ -24,17 +24,17 @@ local TAB_PAPER = { Texture = "DUIFrame", TexCoords = { 0.25, 0.75, 0.3, 0.5 }, 
 -- Settings-TabButton-Selection.png: the tab, opaque from its second row (128 x 64).
 local TAB_SELECTED = { Texture = "DUITab", TexCoords = { 0, 1, 0.0625, 1 }, Color = "White", Alpha = 1 }
 
--- The sort and Show Blizzard Bags buttons out of the header, at the end of the search bar (as the WoW Classic theme puts
--- them): Show Blizzard Bags last, the sort button left of it, each BetterBags' glyph (inked, as the header's) on
--- DialogueUI's button plate (Settings-CloseButton.png's top left quarter: the plate theme.lua puts behind its close
--- button), drawn as ornaments behind the buttons. The plates are PLATE_W x PLATE_H, PLATE_GAP apart, the first Pad in
--- from the outer side, on the search bar's row (Default's SearchTop 70, SearchHeight 26); each button is Default's
--- header button (22) centered on its plate, its glyph at 0.8 of it. The search bar ends PLATE_GAP before the plates.
--- The bank has a sort button but no Show Blizzard Bags: there only the sort plate shows.
+-- The Show Blizzard Bags button out of the header, at the end of the search bar (as the WoW Classic theme puts it), its
+-- BetterBags glyph (inked, as the header's) on DialogueUI's button plate (Settings-CloseButton.png's top left quarter:
+-- the plate theme.lua puts behind its close button), drawn as an ornament behind the button. The plate is PLATE_W x
+-- PLATE_H, Pad in from the outer side, on the search bar's row (Default's SearchTop 70, SearchHeight 26); the button is
+-- Default's header button (22) centered on it, its glyph at 0.8 of it. The search bar ends PLATE_GAP before the plate.
+-- The bank has no Show Blizzard Bags: no plate there. (BetterBags 0.9.3 replaced the sort button, which had a plate
+-- beside it, with the anchor button: it stays in the header.)
 local PAD, SEARCH_TOP, SEARCH_HEIGHT, BUTTON = 18, 70, 26, 22
 local PLATE_W, PLATE_H, PLATE_GAP = 30, 26, 4
 local PLATE_Y = SEARCH_TOP + (SEARCH_HEIGHT - PLATE_H) / 2
-local FIRST_PLATE, SECOND_PLATE = PAD, PAD + PLATE_W + PLATE_GAP
+local FIRST_PLATE = PAD
 local function pinAt(plateX)
   return { Point = "TOPOUTER", X = -(plateX + (PLATE_W - BUTTON) / 2), Y = -(PLATE_Y + (PLATE_H - BUTTON) / 2) }
 end
@@ -167,7 +167,6 @@ sonataNext:RegisterTheme({
   Panel = {
     Ornaments = {
       plate(FIRST_PLATE, { "Backpack" }),
-      plate(SECOND_PLATE, { "Backpack", "Bank" }),
     },
     -- Nothing under the frame, no fade beside it and no line round it: one torn sheet, as the classic window.
     Fill = { Color = { 0, 0, 0, 0 } },
@@ -189,13 +188,13 @@ sonataNext:RegisterTheme({
     Cloud = false,
     Buttons = {
       Color = "Ink", HoverColor = "Seal", ArtColor = "Art", ArtHoverColor = "White",
-      Pinned = { bagsButton = pinAt(FIRST_PLATE), sortButton = pinAt(SECOND_PLATE) },
-      Icons = { bagsButton = { Scale = 0.8 }, sortButton = { Scale = 0.8 } },
+      Pinned = { bagsButton = pinAt(FIRST_PLATE) },
+      Icons = { bagsButton = { Scale = 0.8 } },
     },
   },
 
   Search = {
-    Inset = { Left = PAD, Right = SECOND_PLATE + PLATE_W + PLATE_GAP },
+    Inset = { Left = PAD, Right = FIRST_PLATE + PLATE_W + PLATE_GAP },
     Edge = { Color = "Ink", Idle = 0.35, Hover = 0.6, Focus = 0.9 },
     Icon = { Color = "Ink", FocusColor = "Seal" },
   },
