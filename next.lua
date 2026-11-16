@@ -180,6 +180,9 @@ sonataNext:RegisterTheme({
 
   Header = {
     TitleGlow = { Color = "Seal", Alpha = 0.12, BlendMode = "BLEND" },
+    -- Behind the title while an item is held over it to put it in a category: in the theme's ink, as TitleGlow, twice as
+    -- strong so the drop reads (Default's is a bright gold added glow).
+    ItemDrop = { Highlight = { Color = "Seal", Alpha = 0.24, BlendMode = "BLEND" } },
     -- No line of light from the title out of the window (asked).
     Ribbon = false,
     Spark = false,
