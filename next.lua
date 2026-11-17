@@ -211,6 +211,8 @@ sonataNext:RegisterTheme({
     Glow = { Color = "Seal", BlendMode = "BLEND", Drop = 0.15, Pulse = 0.35 },
     Indicator = false,
     Edge = { Color = "Ink", Alpha = 0.35, Size = 1 },
+    -- The selected one keeps the same ink edge (false drops the gold one inherited from Default).
+    SelectedEdge = false,
   },
 
   Footer = {
